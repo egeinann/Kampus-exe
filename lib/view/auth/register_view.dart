@@ -148,7 +148,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
         int.tryParse(dateController.text.split('.').last) ??
         DateTime.now().year;
 
-    generatedStudentNo ??= auth.generateStudentNo(registrationYear);
+    generatedStudentNo = auth.generateStudentNo(registrationYear);
 
     showModalBottomSheet(
       context: context,

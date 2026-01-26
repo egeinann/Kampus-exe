@@ -19,59 +19,55 @@ class EditProfileView extends ConsumerStatefulWidget {
 
 class _EditProfileViewState extends ConsumerState<EditProfileView> {
   File? _imageFile;
-  String fixedStudentNoPrefix = '';
   final ImagePicker _picker = ImagePicker();
+
+  String fixedStudentNoPrefix = '';
 
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController tcController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
   final TextEditingController studentNoController = TextEditingController();
+
   String? selectedFaculty;
   String? selectedProgram;
   int? selectedClass;
-  String _prefixFromYear(int year) {
-    if (year == 2020) return '1200';
-    return '12${(year - 2020) + 1}1';
-  }
 
   @override
   void initState() {
     super.initState();
 
     final student = ref.read(authProvider);
+    if (student == null) return;
 
-    if (student != null) {
-      fullNameController.text = student.fullName;
-      tcController.text = student.tcNo;
-      dateController.text = student.registrationDate;
+    fullNameController.text = student.fullName;
+    tcController.text = student.tcNo;
+    dateController.text = student.registrationDate;
 
-      if (student.registrationDate.isNotEmpty) {
-        final year = int.parse(student.registrationDate.split('.').last);
-        fixedStudentNoPrefix = _prefixFromYear(year);
-      }
-      studentNoController.text =
-          '$fixedStudentNoPrefix${student.studentNo.substring(4)}';
+    // 🔑 TEK KAYNAK: modelde kayıtlı öğrenci numarası
+    fixedStudentNoPrefix = student.studentNo.substring(0, 4);
+    studentNoController.text = student.studentNo;
+    studentNoController.addListener(_protectStudentNoPrefix);
 
-      studentNoController.addListener(_protectStudentNoPrefix);
+    selectedFaculty = student.faculty;
+    selectedProgram = student.program;
+    selectedClass = student.classYear;
 
-      selectedFaculty = student.faculty;
-      selectedProgram = student.program;
-      selectedClass = student.classYear;
-
-      if (student.photo != null) {
-        _imageFile = File(student.photo!);
-      }
+    if (student.photo != null) {
+      _imageFile = File(student.photo!);
     }
   }
 
   void _protectStudentNoPrefix() {
     final text = studentNoController.text;
 
-    // İlk 4 hane değiştirilmeye çalışıldıysa geri al
+    // Prefix bozulduysa düzelt
+
     if (!text.startsWith(fixedStudentNoPrefix)) {
-      final editablePart = text.length >= 6
-          ? text.substring(text.length - 6)
-          : '';
+      String editablePart = '';
+
+      if (text.length >= fixedStudentNoPrefix.length + 1) {
+        editablePart = text.substring(fixedStudentNoPrefix.length);
+      }
 
       final newText = '$fixedStudentNoPrefix$editablePart';
 
@@ -82,9 +78,11 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
       return;
     }
 
-    // Cursor ilk 4 hanenin önüne geçemesin
-    if (studentNoController.selection.start < 4) {
-      studentNoController.selection = const TextSelection.collapsed(offset: 4);
+    // Cursor prefix'in önüne geçemesin
+    if (studentNoController.selection.start < fixedStudentNoPrefix.length) {
+      studentNoController.selection = TextSelection.collapsed(
+        offset: fixedStudentNoPrefix.length,
+      );
     }
   }
 
@@ -173,16 +171,10 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
       _showAutoCloseDialog("Öğrenci No 10 haneli olmalı");
       return false;
     }
-    if (selectedFaculty == null) {
-      _showAutoCloseDialog("Fakülte seçmelisiniz");
-      return false;
-    }
-    if (selectedProgram == null) {
-      _showAutoCloseDialog("Program seçmelisiniz");
-      return false;
-    }
-    if (selectedClass == null) {
-      _showAutoCloseDialog("Sınıf seçmelisiniz");
+    if (selectedFaculty == null ||
+        selectedProgram == null ||
+        selectedClass == null) {
+      _showAutoCloseDialog("Tüm alanları doldurmalısınız");
       return false;
     }
     if (dateController.text.trim().isEmpty) {
@@ -196,17 +188,17 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
   Widget build(BuildContext context) {
     final auth = ref.read(authProvider.notifier);
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        appBar: trakyaAppBar(
-          context,
-          "Düzenle",
-          [],
-          backgroundColor: Colors.black,
-        ),
-        body: Padding(
+    return Scaffold(
+      appBar: trakyaAppBar(
+        context,
+        "Düzenle",
+        [],
+        backgroundColor: Colors.black,
+      ),
+      body: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Padding(
           padding: const EdgeInsets.all(20),
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -215,31 +207,16 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
               children: [
                 GestureDetector(
                   onTap: _showPickerSheet,
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.black,
-                        backgroundImage: _imageFile != null
-                            ? FileImage(_imageFile!)
-                            : null,
-                        child: _imageFile == null
-                            ? Icon(Icons.person, size: 22.sp)
-                            : null,
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: CircleAvatar(
-                          radius: 14,
-                          backgroundColor: TrakyaColors.card,
-                          child: const Icon(Icons.edit, size: 16),
-                        ),
-                      ),
-                    ],
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: _imageFile != null
+                        ? FileImage(_imageFile!)
+                        : null,
+                    child: _imageFile == null
+                        ? Icon(Icons.person, size: 22.sp)
+                        : null,
                   ),
                 ),
-
                 fullNameField(),
                 idField(),
                 studentNoField(),
@@ -265,13 +242,6 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
     textEditingController: fullNameController,
   );
 
-  TrakyaTextfield studentNoField() => TrakyaTextfield(
-    context: context,
-    prefixIcon: const Icon(Icons.confirmation_number),
-    hintText: "Öğrenci No",
-    maxLength: 10,
-    textEditingController: studentNoController,
-  );
   TrakyaTextfield idField() => TrakyaTextfield(
     context: context,
     prefixIcon: const Icon(Icons.add_card),
@@ -280,20 +250,41 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
     textEditingController: tcController,
   );
 
+  TrakyaTextfield studentNoField() => TrakyaTextfield(
+    context: context,
+    prefixIcon: const Icon(Icons.confirmation_number),
+    hintText: "Öğrenci No",
+    maxLength: 10,
+    textEditingController: studentNoController,
+  );
+
   DropdownButtonFormField<String> facultyDropdown() {
     return DropdownButtonFormField<String>(
+      borderRadius: BorderRadius.circular(16),
       isExpanded: true,
-      value: selectedFaculty,
-      decoration: _dropdownDecoration(icon: Icons.business, hint: "Fakülte"),
+      initialValue: selectedFaculty,
+      decoration: _dropdownDecoration(
+        icon: Icons.business_outlined,
+        hint: "Fakülte",
+      ),
       items: facultyPrograms.keys
-          .map(
-            (e) => DropdownMenuItem(
-              value: e,
-              child: Text(e, style: TextStyle(fontSize: 16.sp)),
+          .map<DropdownMenuItem<String>>(
+            (faculty) => DropdownMenuItem<String>(
+              value: faculty,
+              child: Text(
+                faculty,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: TrakyaColors.negative,
+                  fontFamily: "RobotoBold",
+                ),
+              ),
             ),
           )
           .toList(),
       onChanged: (val) {
+        if (val == selectedFaculty) return;
         setState(() {
           selectedFaculty = val;
           selectedProgram = null;
@@ -303,20 +294,42 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
   }
 
   DropdownButtonFormField<String> programDropdown() {
-    final programs = facultyPrograms[selectedFaculty] ?? [];
+    final List<String> programs =
+        facultyPrograms[selectedFaculty] ?? <String>[];
+    final bool isValidSelectedProgram = programs.contains(selectedProgram);
     return DropdownButtonFormField<String>(
       isExpanded: true,
-      value: programs.contains(selectedProgram) ? selectedProgram : null,
-      decoration: _dropdownDecoration(icon: Icons.school, hint: "Program"),
+      menuMaxHeight: 200,
+      borderRadius: BorderRadius.circular(16),
+      initialValue: isValidSelectedProgram ? selectedProgram : null,
+      decoration: _dropdownDecoration(
+        icon: Icons.school_outlined,
+        hint: "Program",
+      ),
       items: programs
-          .map(
-            (e) => DropdownMenuItem(
-              value: e,
-              child: Text(e, style: TextStyle(fontSize: 16.sp)),
+          .map<DropdownMenuItem<String>>(
+            (program) => DropdownMenuItem<String>(
+              value: program,
+              child: Text(
+                program,
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold,
+                  color: TrakyaColors.negative,
+                  fontFamily: "RobotoBold",
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           )
           .toList(),
-      onChanged: (val) => setState(() => selectedProgram = val),
+      onChanged: programs.isEmpty
+          ? null
+          : (val) {
+              setState(() {
+                selectedProgram = val;
+              });
+            },
     );
   }
 
@@ -325,12 +338,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
       value: selectedClass,
       decoration: _dropdownDecoration(icon: Icons.numbers, hint: "Sınıf"),
       items: [1, 2, 3, 4]
-          .map(
-            (e) => DropdownMenuItem(
-              value: e,
-              child: Text(e.toString(), style: TextStyle(fontSize: 17.sp)),
-            ),
-          )
+          .map((e) => DropdownMenuItem(value: e, child: Text(e.toString())))
           .toList(),
       onChanged: (val) => setState(() => selectedClass = val),
     );
@@ -347,26 +355,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
         initialDate: DateTime.now(),
       );
       if (picked != null) {
-        // Tarihi yaz
         dateController.text = "${picked.day}.${picked.month}.${picked.year}";
-
-        final int year = picked.year;
-
-        final int yearDiff = year - 2020;
-        final String fixedPrefix = year == 2020 ? '1200' : '12${yearDiff + 1}1';
-
-        fixedStudentNoPrefix = fixedPrefix;
-
-        final oldNo = studentNoController.text;
-        final String editablePart = oldNo.length >= 6
-            ? oldNo.substring(oldNo.length - 6)
-            : '000000';
-
-        studentNoController.text = '$fixedPrefix$editablePart';
-
-        studentNoController.selection = TextSelection.fromPosition(
-          TextPosition(offset: studentNoController.text.length),
-        );
       }
     },
     decoration: _dropdownDecoration(

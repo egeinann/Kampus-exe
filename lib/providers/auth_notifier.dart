@@ -16,6 +16,19 @@ class AuthNotifier extends Notifier<StudentModel?> {
     return null;
   }
 
+  String prefixFromYear(int year) {
+    if (year < 2020) {
+      throw ArgumentError('2020 öncesi kayıt yılı desteklenmiyor');
+    }
+
+    final int offset = year - 2020;
+
+    if (offset == 0) return '1200';
+
+    final int lastTwo = offset * 10 + 1;
+    return '12${lastTwo.toString().padLeft(2, '0')}';
+  }
+
   Future<void> _loadFromLocal() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonString = prefs.getString(_studentKey);
@@ -26,13 +39,12 @@ class AuthNotifier extends Notifier<StudentModel?> {
   }
 
   String generateStudentNo(int registrationYear) {
-    int yearCode =
-        (registrationYear - 2020) * 10 + (registrationYear == 2020 ? 0 : 1);
-    final random = Random();
-    int randomNumber = random.nextInt(999999);
-    String randomStr = randomNumber.toString().padLeft(6, '0');
+    final prefix = prefixFromYear(registrationYear);
 
-    return '12${yearCode.toString().padLeft(2, '0')}$randomStr';
+    final random = Random();
+    final randomStr = random.nextInt(999999).toString().padLeft(6, '0');
+
+    return '$prefix$randomStr';
   }
 
   Future<void> registerStudent({
@@ -81,13 +93,11 @@ class AuthNotifier extends Notifier<StudentModel?> {
   }) async {
     if (state == null) return;
 
-    // 🔑 Prefix her zaman kayıt tarihinden gelir
-    final prefix = _prefixFromDate(registrationDate);
-
     // ✏️ Kullanıcı sadece son 6 haneyi etkiler
     final editablePart = studentNo.substring(studentNo.length - 6);
 
-    final finalStudentNo = '$prefix$editablePart';
+    // 🔒 Prefix ilk kayıttaki değerden gelir
+    final finalStudentNo = '${state!.studentNo.substring(0, 4)}$editablePart';
 
     final updatedStudent = state!.copyWith(
       photo: photo,
@@ -104,11 +114,5 @@ class AuthNotifier extends Notifier<StudentModel?> {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_studentKey, updatedStudent.toJsonString());
-  }
-
-  String _prefixFromDate(String registrationDate) {
-    final year = int.parse(registrationDate.split('.').last);
-    if (year == 2020) return '1200';
-    return '12${(year - 2020) + 1}1';
   }
 }
