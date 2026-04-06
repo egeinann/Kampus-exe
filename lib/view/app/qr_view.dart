@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/widgets/appBar.dart';
 
@@ -47,7 +46,7 @@ class _QrViewState extends State<QrView> {
       appBar: trakyaAppBar(context, "Trakya Kampüs 4.0", [
         GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back, size: 25.sp, color: Colors.white),
+          child: Icon(Icons.arrow_back, size: 27, color: Colors.white),
         ),
       ]),
       body: Padding(
@@ -58,13 +57,13 @@ class _QrViewState extends State<QrView> {
           children: [
             Text(
               "Karekod Geçiş",
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
             Center(
               child: Text(
                 "$_remainingTime",
                 style: TextStyle(
-                  fontSize: 30.sp,
+                  fontSize: 34,
                   fontWeight: FontWeight.bold,
                   color: TrakyaColors.primary,
                 ),

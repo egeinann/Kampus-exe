@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/constants/images.dart';
 import 'package:trakya_kampus_41/providers/auth_notifier.dart';
@@ -32,28 +31,37 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
     });
   }
 
-  // Genel TextStyle
-  final TextStyle labelStyle = TextStyle(
-    fontSize: 15.sp,
-    color: Colors.grey.shade600,
-    fontWeight: FontWeight.bold,
-    fontFamily: "robotoBold",
-  );
-
-  final TextStyle valueStyle = TextStyle(
-    fontSize: 16.sp,
-    fontWeight: FontWeight.bold,
-    fontFamily: "robotoBold",
-  );
-
   // Helper widget
   Widget infoRow(String label, String value) {
     return paddedRow(
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: Text(label, style: labelStyle)),
-          Expanded(child: Text(value, style: valueStyle)),
+          Expanded(
+            flex: 2,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey.shade600,
+                fontWeight: FontWeight.bold,
+
+                letterSpacing: 1,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(
+              value,
+              style: TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.bold,
+                fontFamily: "robotoBold",
+                letterSpacing: 1,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -61,7 +69,7 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
 
   Widget paddedRow(Widget row) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       child: row,
     );
   }
@@ -82,7 +90,7 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
         elevation: 0,
         leadingWidth: 80,
         leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical:10),
           child: Image.asset(TrakyaImages.logo),
         ),
         actionsPadding: const EdgeInsets.all(12),
@@ -90,15 +98,16 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
         title: Text(
           "Trakya Kampüs 4.0",
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 22,
+            letterSpacing: 1,
             color: Colors.white,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w600,
           ),
         ),
         actions: [
           GestureDetector(
             onTap: () => Navigator.pop(context),
-            child: Icon(Icons.logout, size: 24.sp, color: Colors.white),
+            child: Icon(Icons.logout, size: 30, color: Colors.white),
           ),
         ],
         centerTitle: true,
@@ -112,7 +121,8 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
                 parent: AlwaysScrollableScrollPhysics(),
               ),
               child: Container(
-                margin: const EdgeInsets.all(12),
+                margin: const EdgeInsets.all(14),
+
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -121,50 +131,44 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     paddedRow(
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                        children: [
-                          Text("Alternatif Bluetooth Arama"),
-                          Checkbox(
-                            value: isChecked,
-                            onChanged: (value) {
-                              setState(() {
-                                isChecked = !isChecked;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    paddedRow(
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text("Öğrenci Kimlik Kartı"),
-                              Text(
-                                "Student Identity Card",
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: Colors.blue,
-                                  fontStyle: FontStyle.italic,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Öğrenci Kimlik Kartı",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 1,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          CircleAvatar(
-                            radius: 24,
-                            backgroundImage: student.photo != null
-                                ? FileImage(File(student.photo!))
-                                : null,
-                            child: student.photo == null
-                                ? const Icon(Icons.person)
-                                : null,
-                          ),
-                        ],
+                                Text(
+                                  "Student Identity Card",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    letterSpacing: 1,
+                                    color: Colors.blue,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            CircleAvatar(
+                              radius: 24,
+                              backgroundImage: student.photo != null
+                                  ? FileImage(File(student.photo!))
+                                  : null,
+                              child: student.photo == null
+                                  ? const Icon(Icons.person)
+                                  : null,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Divider(),
@@ -183,8 +187,8 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
                     paddedRow(
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          vertical: 6,
-                          horizontal: 12,
+                          vertical: 10,
+                          horizontal: 16,
                         ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
@@ -196,14 +200,14 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
                             Icon(
                               Icons.check_circle,
                               color: Colors.white,
-                              size: 16.sp,
+                              size: 18,
                             ),
                             SizedBox(width: 5),
                             Text(
                               "Öğrencilik Hakkı Var",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 15.sp,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 fontFamily: "robotoBold",
                               ),
@@ -214,25 +218,26 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
                     ),
                     Divider(),
                     infoRow("Kayıt Tarihi", student.registrationDate),
-                    SizedBox(height: 2.h),
+                    SizedBox(height: 15),
                     paddedRow(
                       Text(
                         "Dijital kimliği doğrulamak için okutunuz...",
                         style: TextStyle(
                           color: Colors.grey.shade600,
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                     ),
+                    SizedBox(height: 5),
                     paddedRow(
                       Container(
-                        padding: const EdgeInsets.all(30),
+                        padding: const EdgeInsets.all(40),
                         decoration: BoxDecoration(
                           color: Colors.grey.shade200,
                           border: Border.all(
                             color: Colors.grey.shade300,
-                            width: 1,
+                            width: 1.5,
                           ),
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -250,6 +255,7 @@ Program: ${student.program}
                         ),
                       ),
                     ),
+                    SizedBox(height: 50),
                   ],
                 ),
               ),

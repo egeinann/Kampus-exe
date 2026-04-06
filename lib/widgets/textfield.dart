@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 
 class TrakyaTextfield extends StatefulWidget {
@@ -35,37 +34,32 @@ class _TrakyaTextfieldState extends State<TrakyaTextfield> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // example true ise göster, değilse hiç widget ekleme
         if (widget.exampleText != null && widget.exampleText!.isNotEmpty)
           Text(
             "Örnek: ${widget.exampleText}",
             style: TextStyle(
-              fontSize: 14.sp,
+              fontSize: 16,
               color: TrakyaColors.negative,
               fontFamily: "Roboto",
             ),
           ),
         TextField(
+          textCapitalization: TextCapitalization.none,
           maxLength: widget.maxLength,
           controller: widget.textEditingController,
           obscureText: widget.hasSuffixIcon ? obscureVisible : false,
           style: TextStyle(
-            fontSize: 17.sp,
+            fontSize: 19,
             fontWeight: FontWeight.w900,
             color: TrakyaColors.negative,
+            letterSpacing: 2,
             fontFamily: "RobotoBold",
           ),
           inputFormatters: [
             if (widget.isUppercase)
-              TextInputFormatter.withFunction((oldValue, newValue) {
-                return newValue.copyWith(
-                  text: newValue.text.toUpperCase(),
-                  selection: newValue.selection,
-                );
-              }),
+              TurkishUpperCaseTextInputFormatter(),
           ],
           decoration: InputDecoration(
             counterText: "",
@@ -74,7 +68,7 @@ class _TrakyaTextfieldState extends State<TrakyaTextfield> {
             prefixIcon: widget.prefixIcon,
             hintText: widget.hintText ?? "",
             hintStyle: TextStyle(
-              fontSize: 15.sp,
+              fontSize: 17,
               fontWeight: FontWeight.w500,
               fontFamily: "Roboto",
               color: TrakyaColors.negative,
@@ -93,18 +87,41 @@ class _TrakyaTextfieldState extends State<TrakyaTextfield> {
                     ),
                   )
                 : null,
-
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide.none,
             ),
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 18,
-              horizontal: 18,
-            ),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Türkçe karakterleri doğru şekilde büyük harfe çeviren input formatter
+class TurkishUpperCaseTextInputFormatter extends TextInputFormatter {
+  final Map<String, String> _map = {
+    'i': 'İ',
+    'ı': 'I',
+    'ş': 'Ş',
+    'ğ': 'Ğ',
+    'ü': 'Ü',
+    'ö': 'Ö',
+    'ç': 'Ç',
+    'â': 'Â',
+    'î': 'Î',
+    'û': 'Û',
+  };
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    String text = newValue.text.split('').map((c) => _map[c] ?? c.toUpperCase()).join();
+    return TextEditingValue(
+      text: text,
+      selection: TextSelection.collapsed(offset: text.length),
     );
   }
 }

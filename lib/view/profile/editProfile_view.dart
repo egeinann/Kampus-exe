@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/data/faculty_programs.dart';
 import 'package:trakya_kampus_41/providers/auth_notifier.dart';
@@ -142,7 +142,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 16.sp,
+            fontSize: 18,
             color: Colors.redAccent,
           ),
         ),
@@ -189,12 +189,11 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
     final auth = ref.read(authProvider.notifier);
 
     return Scaffold(
-      appBar: trakyaAppBar(
-        context,
-        "Düzenle",
-        [],
-        backgroundColor: Colors.black,
-      ),
+      appBar: trakyaAppBar(context, "Düzenle", [
+        GestureDetector(
+          onTap: ()=>Navigator.pop(context),
+          child: Icon(Icons.close,color: Colors.white,size: 30,)),
+      ], backgroundColor: Colors.black),
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () => FocusScope.of(context).unfocus(),
@@ -213,7 +212,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
                         ? FileImage(_imageFile!)
                         : null,
                     child: _imageFile == null
-                        ? Icon(Icons.person, size: 22.sp)
+                        ? Icon(Icons.person, size: 24)
                         : null,
                   ),
                 ),
@@ -274,7 +273,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
               child: Text(
                 faculty,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: TrakyaColors.negative,
                   fontFamily: "RobotoBold",
@@ -313,7 +312,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
               child: Text(
                 program,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: TrakyaColors.negative,
                   fontFamily: "RobotoBold",

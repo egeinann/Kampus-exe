@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/constants/images.dart';
 import 'package:trakya_kampus_41/providers/auth_notifier.dart';
@@ -35,7 +34,7 @@ class MenuView extends ConsumerWidget {
               Text(
                 student?.fullName.toUpperCase() ?? "",
                 style: TextStyle(
-                  fontSize: 15.sp,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
@@ -43,7 +42,7 @@ class MenuView extends ConsumerWidget {
               Text(
                 "OGRENCI",
                 style: TextStyle(
-                  fontSize: 15.sp,
+                  fontSize: 17,
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
@@ -54,7 +53,7 @@ class MenuView extends ConsumerWidget {
         actions: [
           GestureDetector(
             onTap: () => _showExitDialog(context),
-            child: Icon(Icons.logout, size: 26.sp, color: Colors.white),
+            child: Icon(Icons.logout, size: 28, color: Colors.white),
           ),
         ],
       ),

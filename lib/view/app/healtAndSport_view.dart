@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/widgets/appBar.dart';
 
@@ -12,7 +11,7 @@ class HealtAndSportView extends StatelessWidget {
       appBar: trakyaAppBar(context, "Trakya Kampüs 4.0", [
         GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back, size: 25.sp, color: Colors.white),
+          child: Icon(Icons.arrow_back, size: 27, color: Colors.white),
         ),
       ]),
       body: Padding(
@@ -28,14 +27,14 @@ class HealtAndSportView extends StatelessWidget {
                     TextSpan(
                       text: 'Sağlık Kültür Spor ',
                       style: TextStyle(
-                        fontSize: 19.sp,
+                        fontSize: 20,
                         color: TrakyaColors.negative,
                       ),
                     ),
                     TextSpan(
                       text: '(1)',
                       style: TextStyle(
-                        fontSize: 14.sp,
+                        fontSize:16,
                         color: TrakyaColors.negative,
                       ), // Küçük ve soluk renkli
                     ),
@@ -50,7 +49,7 @@ class HealtAndSportView extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(height: 10.h),
+                    SizedBox(height: 20),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -68,7 +67,7 @@ class HealtAndSportView extends StatelessWidget {
                               Text(
                                 "Topluluklar",
                                 style: TextStyle(
-                                  fontSize: 18.sp,
+                                  fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                   color: TrakyaColors.primary,
                                 ),
@@ -76,7 +75,7 @@ class HealtAndSportView extends StatelessWidget {
                               Text(
                                 "(2)",
                                 style: TextStyle(
-                                  fontSize: 16.sp,
+                                  fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   color: TrakyaColors.primary,
                                 ),
@@ -100,7 +99,7 @@ class HealtAndSportView extends StatelessWidget {
                               title: Text(
                                 "Katıldığım Topluluklar",
                                 style: TextStyle(
-                                  fontSize: 17.sp,
+                                  fontSize: 19,
                                   color: TrakyaColors.primary,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -128,7 +127,7 @@ class HealtAndSportView extends StatelessWidget {
                               title: Text(
                                 "Katıldığım Topluluklar",
                                 style: TextStyle(
-                                  fontSize: 17.sp,
+                                  fontSize:19,
                                   color: TrakyaColors.primary,
                                   fontWeight: FontWeight.w500,
                                 ),

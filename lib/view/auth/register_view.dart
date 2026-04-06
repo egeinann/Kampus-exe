@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/data/faculty_programs.dart';
 import 'package:trakya_kampus_41/providers/auth_notifier.dart';
@@ -57,7 +56,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 16.sp,
+            fontSize: 18,
             color: Colors.redAccent,
           ),
         ),
@@ -131,11 +130,13 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
             ListTile(
               leading: const Icon(Icons.camera_alt),
               title: const Text('Fotoğraf Çek'),
+              
               onTap: () {
                 Navigator.pop(context);
                 _pickImage(ImageSource.camera);
               },
             ),
+            SizedBox(height: 50,)
           ],
         ),
       ),
@@ -163,7 +164,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
           children: [
             Text(
               "SON KONTROL",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             _buildInfoRow("Ad Soyad", fullNameController.text),
             _buildInfoRow("TC", tcController.text),
@@ -208,7 +209,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               child: Text(
                 "Kaydı oluştur",
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: TrakyaColors.background,
                   fontFamily: "RobotoBold",
@@ -240,7 +241,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
           Text(
             label,
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: TrakyaColors.negative,
               fontFamily: "RobotoBold",
@@ -254,7 +255,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               child: Text(
                 value,
                 style: TextStyle(
-                  fontSize: 15.sp,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold,
                   color: TrakyaColors.negative,
                   fontFamily: "RobotoBold",
@@ -292,13 +293,13 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                 Text(
                   "KAYIT OL",
                   style: TextStyle(
-                    fontSize: 20.sp,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: TrakyaColors.negative,
                     fontFamily: "RobotoBold",
                   ),
                 ),
-                Divider(),
+                
 
                 GestureDetector(
                   onTap: _showPickerSheet,
@@ -314,7 +315,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                             ? Icon(
                                 Icons.person_3_rounded,
                                 color: Colors.white,
-                                size: 22.sp,
+                                size: 24,
                               )
                             : null,
                       ),
@@ -360,7 +361,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
       prefixIcon: const Icon(Icons.person),
       hintText: "Ad Soyad",
       isUppercase: true,
-      exampleText: "EGE INAN (boşluk bırak)",
+      exampleText: "AHMET YILMAZ (boşluk bırak)",
       textEditingController: fullNameController,
     );
   }
@@ -391,7 +392,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               child: Text(
                 faculty,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: TrakyaColors.negative,
                   fontFamily: "RobotoBold",
@@ -433,7 +434,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               child: Text(
                 program,
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                   color: TrakyaColors.negative,
                   fontFamily: "RobotoBold",
@@ -461,7 +462,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
         prefixIcon: const Icon(Icons.numbers),
         hintText: "Sınıf",
         hintStyle: TextStyle(
-          fontSize: 15.sp,
+          fontSize: 17,
           fontWeight: FontWeight.w500,
           color: TrakyaColors.negative,
         ),
@@ -471,7 +472,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),
+        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
       ),
       items: [1, 2, 3, 4]
           .map(
@@ -480,7 +481,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               child: Text(
                 num.toString(),
                 style: TextStyle(
-                  fontSize: 17.sp,
+                  fontSize: 19,
                   fontWeight: FontWeight.bold,
                   color: TrakyaColors.negative,
                   fontFamily: "RobotoBold",
@@ -522,16 +523,16 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
           borderRadius: BorderRadius.circular(16),
           borderSide: BorderSide.none,
         ),
-        contentPadding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),
+        contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
         hintStyle: TextStyle(
-          fontSize: 15.sp,
+          fontSize: 17,
           fontWeight: FontWeight.w500,
           fontFamily: "Roboto",
           color: TrakyaColors.negative,
         ),
       ),
       style: TextStyle(
-        fontSize: 17.sp,
+        fontSize: 19,  
         fontWeight: FontWeight.w900,
         color: TrakyaColors.negative,
       ),
@@ -572,9 +573,9 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
         borderRadius: BorderRadius.circular(16),
         borderSide: BorderSide.none,
       ),
-      contentPadding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),
+      contentPadding: EdgeInsets.symmetric(vertical:20, horizontal: 40),
       hintStyle: TextStyle(
-        fontSize: 15.sp,
+        fontSize:17,
         fontWeight: FontWeight.w500,
         color: TrakyaColors.negative,
       ),

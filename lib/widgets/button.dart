@@ -4,9 +4,9 @@ import 'package:trakya_kampus_41/constants/colors.dart';
 Widget customButton(
   String text,
   IconData icon,
-  BuildContext context,
-  {required VoidCallback onPressed}
-) {
+  BuildContext context, {
+  required VoidCallback onPressed,
+}) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
       backgroundColor: TrakyaColors.primary,
@@ -23,8 +23,15 @@ Widget customButton(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(icon, size: 24),
-        Text(text, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+        Icon(icon, size: 26,),
+        Text(
+          text,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w900,
+            fontFamily: "RobotoBold",
+          ),
+        ),
       ],
     ),
   );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/constants/images.dart';
 
@@ -30,9 +29,11 @@ PreferredSizeWidget trakyaAppBar(
         title: Text(
           title,
           style: TextStyle(
-            fontSize: 18.sp,
+            fontSize: 22,
             color: Colors.white,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w900,
+            letterSpacing: 1.5,
+            fontFamily: "robotoBold"
           ),
         ),
         actions: actions,

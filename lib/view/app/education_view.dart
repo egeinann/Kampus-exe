@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+
 import 'package:trakya_kampus_41/constants/images.dart';
 import 'package:trakya_kampus_41/widgets/appBar.dart';
 
@@ -12,7 +12,7 @@ class EducationView extends StatelessWidget {
       appBar: trakyaAppBar(context, "Trakya Kampüs 4.0", [
         GestureDetector(
           onTap: () => Navigator.pop(context),
-          child: Icon(Icons.arrow_back, size: 25.sp, color: Colors.white),
+          child: Icon(Icons.arrow_back, size: 27, color: Colors.white),
         ),
       ]),
       body: Padding(
@@ -27,7 +27,11 @@ class EducationView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 "Eğitim",
-                style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  
+                ),
               ),
             ),
             Image.asset(TrakyaImages.courseSchedule),
