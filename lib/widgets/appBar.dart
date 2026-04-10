@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/constants/images.dart';
 
@@ -28,12 +30,10 @@ PreferredSizeWidget trakyaAppBar(
         automaticallyImplyLeading: false,
         title: Text(
           title,
-          style: TextStyle(
-            fontSize: 22,
-            color: Colors.white,
+          style: GoogleFonts.roboto(
+            fontSize: 20.sp,
             fontWeight: FontWeight.w900,
-            letterSpacing: 1.5,
-            fontFamily: "robotoBold"
+            color: Colors.white,
           ),
         ),
         actions: actions,

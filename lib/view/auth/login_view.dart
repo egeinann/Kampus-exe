@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/constants/images.dart';
 import 'package:trakya_kampus_41/providers/auth_notifier.dart';
@@ -26,6 +28,7 @@ class LoginView extends ConsumerWidget {
     bool reminderChecked = false;
 
     return Scaffold(
+      backgroundColor: TrakyaColors.background,
       appBar: trakyaAppBar(context, "Trakya Kampüs 4.0", [
         Image.asset(TrakyaImages.news),
       ]),
@@ -82,17 +85,17 @@ class LoginView extends ConsumerWidget {
                 hintText: "Kullanıcı Adı",
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 2,
-              child: Center(
+              child: Align(
+                alignment: Alignment.centerRight,
                 child: Text(
                   "@trakya.edu.tr",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w900,
+                  style: GoogleFonts.roboto(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w800,
+                    color: const Color.fromARGB(255, 40, 40, 40),
                     fontStyle: FontStyle.italic,
-                    fontFamily: "RobotoBold",
-                    letterSpacing: 1.5,
                   ),
                 ),
               ),
@@ -116,11 +119,11 @@ class LoginView extends ConsumerWidget {
       alignment: Alignment.center,
       child: Text(
         "version 11.0.0",
-        style: TextStyle(
-          fontSize: 16,
+        style: GoogleFonts.roboto(
+          fontSize: 16.sp,
           fontWeight: FontWeight.w900,
-          fontFamily: "RobotoBold",
-          letterSpacing: 1.5,
+        
+          
         ),
       ),
     );
@@ -135,14 +138,14 @@ class LoginView extends ConsumerWidget {
         Icon(Icons.feedback_outlined, color: TrakyaColors.primary, size: 18),
         Text(
           "Öneri & Şikayet İlet",
-          style: TextStyle(
-            fontSize: 18,
+          style: GoogleFonts.roboto(
+            fontSize: 16.sp,
             fontWeight: FontWeight.w900,
             color: TrakyaColors.primary.withAlpha(220),
             decoration: TextDecoration.underline,
             decorationThickness: 2,
-            letterSpacing: 1,
-            fontFamily: "RobotoBold",
+            
+           
           ),
         ),
       ],
@@ -164,13 +167,13 @@ class LoginView extends ConsumerWidget {
           ),
         ),
 
-        const Text(
+        Text(
           "Beni Hatırla",
-          style: TextStyle(
-            fontSize: 18,
+          style: GoogleFonts.roboto(
+            fontSize: 16.sp,
             fontWeight: FontWeight.w900,
-            letterSpacing: 1,
-            fontFamily: "RobotoBold",
+
+            color: Colors.black,
           ),
         ),
       ],
@@ -180,58 +183,13 @@ class LoginView extends ConsumerWidget {
   // altı çizgili metinler
   Column underlineTexts() {
     return Column(
-      spacing: 16,
+      spacing: 16.h,
       crossAxisAlignment: CrossAxisAlignment.start,
-
       children: [
-        Text(
-          "KVKK Aydınlatma Metni",
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-            fontFamily: "RobotoBold",
-            decoration: TextDecoration.underline,
-            decorationThickness: 2,
-            letterSpacing: 1,
-            fontSize: 16,
-          ),
-        ),
-        Text(
-          "Eğitim Öğretim Yönetmeliği",
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-            fontFamily: "RobotoBold",
-            decoration: TextDecoration.underline,
-            decorationThickness: 2,
-            letterSpacing: 1,
-            fontSize: 16,
-          ),
-        ),
-        Text(
-          "2547 Sayılı Kanun Maddesi",
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-            fontFamily: "RobotoBold",
-            decoration: TextDecoration.underline,
-            decorationThickness: 2,
-            letterSpacing: 1,
-            fontSize: 16,
-          ),
-        ),
-        Text(
-          "Öğrenci El Kitabı",
-          style: TextStyle(
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-            fontFamily: "RobotoBold",
-            decoration: TextDecoration.underline,
-            decorationThickness: 2,
-            letterSpacing: 1,
-            fontSize: 16,
-          ),
-        ),
+        underlineText("KVKK Aydınlatma Metni"),
+        underlineText("Eğitim Öğretim Yönetmeliği"),
+        underlineText("2547 Sayılı Kanun Maddesi"),
+        underlineText("Öğrenci El Kitabı"),
       ],
     );
   }
@@ -242,12 +200,25 @@ class LoginView extends ConsumerWidget {
       alignment: Alignment.center,
       child: Text(
         "Giriş",
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          fontFamily: "robotoBold",
-          letterSpacing: 1,
+        style: GoogleFonts.roboto(
+          fontSize: 22.sp,
+          fontWeight: FontWeight.w900,
+          color: Colors.black,
         ),
+      ),
+    );
+  }
+
+  Widget underlineText(String text) {
+    return Text(
+      text,
+      style: GoogleFonts.roboto(
+        fontStyle: FontStyle.italic,
+        fontWeight: FontWeight.w800,
+        decoration: TextDecoration.underline,
+        decorationThickness: 2,
+      
+        fontSize: 16.sp,
       ),
     );
   }

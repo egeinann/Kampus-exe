@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:trakya_kampus_41/constants/colors.dart';
@@ -41,12 +43,10 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
             flex: 2,
             child: Text(
               label,
-              style: TextStyle(
-                fontSize: 16,
+              style: GoogleFonts.roboto(
+                fontSize: 16.sp,
                 color: Colors.grey.shade600,
-                fontWeight: FontWeight.bold,
-
-                letterSpacing: 1,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -54,11 +54,9 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
             flex: 3,
             child: Text(
               value,
-              style: TextStyle(
-                fontSize: 19,
-                fontWeight: FontWeight.bold,
-                fontFamily: "robotoBold",
-                letterSpacing: 1,
+              style: GoogleFonts.roboto(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
@@ -84,24 +82,24 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
       );
     }
     return Scaffold(
+      backgroundColor: TrakyaColors.background,
       appBar: AppBar(
         backgroundColor: TrakyaColors.primary,
         toolbarHeight: 60,
         elevation: 0,
         leadingWidth: 80,
         leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical:10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Image.asset(TrakyaImages.logo),
         ),
         actionsPadding: const EdgeInsets.all(12),
         automaticallyImplyLeading: false,
         title: Text(
           "Trakya Kampüs 4.0",
-          style: TextStyle(
-            fontSize: 22,
-            letterSpacing: 1,
+          style: GoogleFonts.roboto(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w700,
             color: Colors.white,
-            fontWeight: FontWeight.w600,
           ),
         ),
         actions: [
@@ -141,17 +139,17 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
                               children: [
                                 Text(
                                   "Öğrenci Kimlik Kartı",
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w900,
-                                    letterSpacing: 1,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
                                   ),
                                 ),
                                 Text(
                                   "Student Identity Card",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    letterSpacing: 1,
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 14.sp,
+
                                     color: Colors.blue,
                                     fontStyle: FontStyle.italic,
                                   ),
@@ -205,11 +203,11 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
                             SizedBox(width: 5),
                             Text(
                               "Öğrencilik Hakkı Var",
-                              style: TextStyle(
+                              style: GoogleFonts.roboto(
                                 color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "robotoBold",
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w600,
+                               
                               ),
                             ),
                           ],
@@ -222,9 +220,9 @@ class _DigitalIdentityViewState extends ConsumerState<DigitalIdentityView> {
                     paddedRow(
                       Text(
                         "Dijital kimliği doğrulamak için okutunuz...",
-                        style: TextStyle(
+                        style: GoogleFonts.roboto(
                           color: Colors.grey.shade600,
-                          fontSize: 14,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

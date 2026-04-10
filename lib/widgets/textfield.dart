@@ -92,7 +92,7 @@ class _TrakyaTextfieldState extends State<TrakyaTextfield> {
               borderSide: BorderSide.none,
             ),
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
           ),
         ),
       ],

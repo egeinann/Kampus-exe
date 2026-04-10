@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 
 Widget customButton(
@@ -15,7 +17,7 @@ Widget customButton(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16), // köşeleri yuvarla
       ),
-      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
     ),
     onPressed: onPressed,
     child: Row(
@@ -26,10 +28,10 @@ Widget customButton(
         Icon(icon, size: 26,),
         Text(
           text,
-          style: TextStyle(
-            fontSize: 22,
+          style: GoogleFonts.roboto(
+            fontSize: 20.sp,
             fontWeight: FontWeight.w900,
-            fontFamily: "RobotoBold",
+            color: Colors.white
           ),
         ),
       ],

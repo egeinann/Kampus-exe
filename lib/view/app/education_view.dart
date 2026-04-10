@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:trakya_kampus_41/constants/colors.dart';
 
 import 'package:trakya_kampus_41/constants/images.dart';
 import 'package:trakya_kampus_41/widgets/appBar.dart';
@@ -9,6 +12,7 @@ class EducationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: TrakyaColors.background,
       appBar: trakyaAppBar(context, "Trakya Kampüs 4.0", [
         GestureDetector(
           onTap: () => Navigator.pop(context),
@@ -27,8 +31,8 @@ class EducationView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 "Eğitim",
-                style: TextStyle(
-                  fontSize: 20,
+                style: GoogleFonts.roboto(
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                   
                 ),

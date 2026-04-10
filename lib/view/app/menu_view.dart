@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/constants/images.dart';
 import 'package:trakya_kampus_41/providers/auth_notifier.dart';
@@ -33,17 +36,17 @@ class MenuView extends ConsumerWidget {
             children: [
               Text(
                 student?.fullName.toUpperCase() ?? "",
-                style: TextStyle(
-                  fontSize: 17,
+                style: GoogleFonts.roboto(
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
               ),
               Text(
                 "OGRENCI",
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
+                style:  GoogleFonts.roboto(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400,
                   color: Colors.white,
                 ),
               ),

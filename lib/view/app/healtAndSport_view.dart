@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 import 'package:trakya_kampus_41/widgets/appBar.dart';
 
@@ -8,6 +10,7 @@ class HealtAndSportView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: TrakyaColors.background,
       appBar: trakyaAppBar(context, "Trakya Kampüs 4.0", [
         GestureDetector(
           onTap: () => Navigator.pop(context),
@@ -20,21 +23,21 @@ class HealtAndSportView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10,top: 22,bottom: 4),
+              padding: const EdgeInsets.only(left: 10, top: 22, bottom: 4),
               child: RichText(
                 text: TextSpan(
                   children: [
                     TextSpan(
                       text: 'Sağlık Kültür Spor ',
-                      style: TextStyle(
-                        fontSize: 20,
+                      style: GoogleFonts.roboto(
+                        fontSize: 20.sp,
                         color: TrakyaColors.negative,
                       ),
                     ),
                     TextSpan(
                       text: '(1)',
                       style: TextStyle(
-                        fontSize:16,
+                        fontSize: 16,
                         color: TrakyaColors.negative,
                       ), // Küçük ve soluk renkli
                     ),
@@ -119,7 +122,7 @@ class HealtAndSportView extends StatelessWidget {
 
                             child: ListTile(
                               contentPadding: EdgeInsets.only(
-                               top: 0,
+                                top: 0,
                                 bottom: 10,
                                 left: 12,
                                 right: 12,
@@ -127,7 +130,7 @@ class HealtAndSportView extends StatelessWidget {
                               title: Text(
                                 "Katıldığım Topluluklar",
                                 style: TextStyle(
-                                  fontSize:19,
+                                  fontSize: 19,
                                   color: TrakyaColors.primary,
                                   fontWeight: FontWeight.w500,
                                 ),
