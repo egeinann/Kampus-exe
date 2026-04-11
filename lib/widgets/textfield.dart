@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:trakya_kampus_41/constants/colors.dart';
 
 class TrakyaTextfield extends StatefulWidget {
@@ -39,10 +41,10 @@ class _TrakyaTextfieldState extends State<TrakyaTextfield> {
         if (widget.exampleText != null && widget.exampleText!.isNotEmpty)
           Text(
             "Örnek: ${widget.exampleText}",
-            style: TextStyle(
-              fontSize: 16,
+            style: GoogleFonts.roboto(
+              fontSize: 14.sp,
               color: TrakyaColors.negative,
-              fontFamily: "Roboto",
+            
             ),
           ),
         TextField(
@@ -50,12 +52,12 @@ class _TrakyaTextfieldState extends State<TrakyaTextfield> {
           maxLength: widget.maxLength,
           controller: widget.textEditingController,
           obscureText: widget.hasSuffixIcon ? obscureVisible : false,
-          style: TextStyle(
-            fontSize: 19,
-            fontWeight: FontWeight.w900,
+          style: GoogleFonts.roboto(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
             color: TrakyaColors.negative,
-            letterSpacing: 2,
-            fontFamily: "RobotoBold",
+            letterSpacing: 1,
+           
           ),
           inputFormatters: [
             if (widget.isUppercase)
@@ -67,10 +69,10 @@ class _TrakyaTextfieldState extends State<TrakyaTextfield> {
             fillColor: TrakyaColors.card,
             prefixIcon: widget.prefixIcon,
             hintText: widget.hintText ?? "",
-            hintStyle: TextStyle(
+            hintStyle: GoogleFonts.roboto(
               fontSize: 17,
               fontWeight: FontWeight.w500,
-              fontFamily: "Roboto",
+             
               color: TrakyaColors.negative,
             ),
             suffixIcon: widget.hasSuffixIcon

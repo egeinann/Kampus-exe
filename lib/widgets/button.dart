@@ -30,7 +30,7 @@ Widget customButton(
           text,
           style: GoogleFonts.roboto(
             fontSize: 20.sp,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w700,
             color: Colors.white
           ),
         ),

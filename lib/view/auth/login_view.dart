@@ -92,8 +92,8 @@ class LoginView extends ConsumerWidget {
                 child: Text(
                   "@trakya.edu.tr",
                   style: GoogleFonts.roboto(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w800,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
                     color: const Color.fromARGB(255, 40, 40, 40),
                     fontStyle: FontStyle.italic,
                   ),
@@ -121,7 +121,7 @@ class LoginView extends ConsumerWidget {
         "version 11.0.0",
         style: GoogleFonts.roboto(
           fontSize: 16.sp,
-          fontWeight: FontWeight.w900,
+          fontWeight: FontWeight.w600,
         
           
         ),
@@ -140,7 +140,7 @@ class LoginView extends ConsumerWidget {
           "Öneri & Şikayet İlet",
           style: GoogleFonts.roboto(
             fontSize: 16.sp,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w500,
             color: TrakyaColors.primary.withAlpha(220),
             decoration: TextDecoration.underline,
             decorationThickness: 2,
@@ -170,8 +170,8 @@ class LoginView extends ConsumerWidget {
         Text(
           "Beni Hatırla",
           style: GoogleFonts.roboto(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w900,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500,
 
             color: Colors.black,
           ),
@@ -201,8 +201,8 @@ class LoginView extends ConsumerWidget {
       child: Text(
         "Giriş",
         style: GoogleFonts.roboto(
-          fontSize: 22.sp,
-          fontWeight: FontWeight.w900,
+          fontSize: 20.sp,
+          fontWeight: FontWeight.w600,
           color: Colors.black,
         ),
       ),
@@ -214,11 +214,11 @@ class LoginView extends ConsumerWidget {
       text,
       style: GoogleFonts.roboto(
         fontStyle: FontStyle.italic,
-        fontWeight: FontWeight.w800,
+        fontWeight: FontWeight.w500,
         decoration: TextDecoration.underline,
         decorationThickness: 2,
       
-        fontSize: 16.sp,
+        fontSize: 14.sp,
       ),
     );
   }

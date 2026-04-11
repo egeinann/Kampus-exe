@@ -37,15 +37,15 @@ class MenuView extends ConsumerWidget {
               Text(
                 student?.fullName.toUpperCase() ?? "",
                 style: GoogleFonts.roboto(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
               ),
               Text(
                 "OGRENCI",
-                style:  GoogleFonts.roboto(
-                  fontSize: 16.sp,
+                style: GoogleFonts.roboto(
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.white,
                 ),
@@ -65,6 +65,7 @@ class MenuView extends ConsumerWidget {
         children: [
           Image.asset(
             TrakyaImages.menuBackground,
+           
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,
@@ -92,23 +93,31 @@ class MenuView extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
-                  spacing: 25,
+                  spacing: 5.w,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const EditProfileView(),
-                          ),
-                        );
-                      },
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EditProfileView(),
+                        ),
+                      ),
                       child: Icon(
-                        Icons.description_outlined,
+                        Icons.notifications_on,
                         size: 45,
                         color: Colors.white,
                       ),
+                    ),
+                    Icon(
+                      Icons.wallet_giftcard_outlined,
+                      size: 45,
+                      color: Colors.white,
+                    ),
+                    Icon(
+                      Icons.description_outlined,
+                      size: 45,
+                      color: Colors.white,
                     ),
                     GestureDetector(
                       onTap: () => Navigator.push(
@@ -277,9 +286,12 @@ class MenuView extends ConsumerWidget {
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.pushReplacement(context, MaterialPageRoute(
-                          builder: (context) => const LoginView(),
-                        ));
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginView(),
+                          ),
+                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(

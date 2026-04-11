@@ -1,17 +1,21 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+
 import 'package:trakya_kampus_41/constants/colors.dart';
+import 'package:trakya_kampus_41/providers/auth_notifier.dart';
 import 'package:trakya_kampus_41/widgets/appBar.dart';
 
-class QrView extends StatefulWidget {
+class QrView extends ConsumerStatefulWidget {
   const QrView({super.key});
 
   @override
-  State<QrView> createState() => _QrViewState();
+  ConsumerState<QrView> createState() => _QrViewState();
 }
 
-class _QrViewState extends State<QrView> {
+class _QrViewState extends ConsumerState<QrView> {
   int _remainingTime = 60;
   Timer? _timer;
 
@@ -40,8 +44,31 @@ class _QrViewState extends State<QrView> {
     super.dispose();
   }
 
+  String _qrPayload(String fullName, String studentNo, String faculty, String program) {
+    return '''
+Ad Soyad: $fullName
+Öğrenci No: $studentNo
+Fakülte: $faculty
+Program: $program
+''';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final student = ref.watch(authProvider);
+
+    if (student == null) {
+      return Scaffold(
+        appBar: trakyaAppBar(context, "Trakya Kampüs 4.0", [
+          GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Icon(Icons.arrow_back, size: 27, color: Colors.white),
+          ),
+        ]),
+        body: const Center(child: Text('Öğrenci bilgisi bulunamadı')),
+      );
+    }
+
     return Scaffold(
       appBar: trakyaAppBar(context, "Trakya Kampüs 4.0", [
         GestureDetector(
@@ -73,8 +100,12 @@ class _QrViewState extends State<QrView> {
               child: Center(
                 child: QrImageView(
                   padding: const EdgeInsets.all(50),
-                  data:
-                      "Ad: Ege Inan\nÖğrenci No: 1200707028\nOkul: İktisadi ve İdari Bilimler",
+                  data: _qrPayload(
+                    student.fullName,
+                    student.studentNo,
+                    student.faculty,
+                    student.program,
+                  ),
                   version: QrVersions.auto,
                 ),
               ),

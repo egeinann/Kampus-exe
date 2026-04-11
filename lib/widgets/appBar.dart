@@ -31,8 +31,8 @@ PreferredSizeWidget trakyaAppBar(
         title: Text(
           title,
           style: GoogleFonts.roboto(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w900,
+            fontSize: 18.sp,
+            fontWeight: FontWeight.w400,
             color: Colors.white,
           ),
         ),

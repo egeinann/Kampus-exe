@@ -57,6 +57,43 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
     }
   }
 
+  void _syncStudentNoPrefixFromRegistrationYear(int year) {
+    final authNotifier = ref.read(authProvider.notifier);
+    late final String newPrefix;
+    try {
+      newPrefix = authNotifier.prefixFromYear(year);
+    } on ArgumentError {
+      _showAutoCloseDialog('Kayıt yılı 2020 ve sonrası olmalıdır');
+      return;
+    }
+
+    final raw = studentNoController.text.replaceAll(RegExp(r'\s'), '');
+    final String suffix = raw.length >= 6
+        ? raw.substring(raw.length - 6)
+        : raw.padLeft(6, '0');
+    final clipped =
+        suffix.length > 6 ? suffix.substring(suffix.length - 6) : suffix;
+
+    studentNoController.removeListener(_protectStudentNoPrefix);
+    fixedStudentNoPrefix = newPrefix;
+    studentNoController.text = '$newPrefix$clipped';
+    studentNoController.addListener(_protectStudentNoPrefix);
+    setState(() {});
+  }
+
+  DateTime _initialDateForPicker() {
+    final parts = dateController.text.split('.');
+    if (parts.length == 3) {
+      final d = int.tryParse(parts[0]);
+      final m = int.tryParse(parts[1]);
+      final y = int.tryParse(parts[2]);
+      if (d != null && m != null && y != null) {
+        return DateTime(y, m, d);
+      }
+    }
+    return DateTime.now();
+  }
+
   void _protectStudentNoPrefix() {
     final text = studentNoController.text;
 
@@ -349,12 +386,13 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
     onTap: () async {
       final picked = await showDatePicker(
         context: context,
-        firstDate: DateTime(1990),
+        firstDate: DateTime(2020),
         lastDate: DateTime(2100),
-        initialDate: DateTime.now(),
+        initialDate: _initialDateForPicker(),
       );
       if (picked != null) {
         dateController.text = "${picked.day}.${picked.month}.${picked.year}";
+        _syncStudentNoPrefixFromRegistrationYear(picked.year);
       }
     },
     decoration: _dropdownDecoration(

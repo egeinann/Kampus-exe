@@ -93,11 +93,14 @@ class AuthNotifier extends Notifier<StudentModel?> {
   }) async {
     if (state == null) return;
 
-    // ✏️ Kullanıcı sadece son 6 haneyi etkiler
     final editablePart = studentNo.substring(studentNo.length - 6);
 
-    // 🔒 Prefix ilk kayıttaki değerden gelir
-    final finalStudentNo = '${state!.studentNo.substring(0, 4)}$editablePart';
+    // Önek: kayıt yılına göre profil ekranında güncellenmiş olabilir (ilk 4 hane)
+    final String prefix = studentNo.length >= 10
+        ? studentNo.substring(0, 4)
+        : state!.studentNo.substring(0, 4);
+
+    final finalStudentNo = '$prefix$editablePart';
 
     final updatedStudent = state!.copyWith(
       photo: photo,
