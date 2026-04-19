@@ -9,25 +9,24 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Flutter (manual, stable & safe)
+      - name: Install Flutter manually
         run: |
           git clone https://github.com/flutter/flutter.git -b stable --depth 1
           echo "$PWD/flutter/bin" >> $GITHUB_PATH
           flutter --version
 
-      - name: Check Flutter Doctor
+      - name: Doctor
         run: flutter doctor -v
 
-      - name: Install dependencies
+      - name: Pub get
         run: flutter pub get
 
-      - name: Clean build
+      - name: Clean
         run: flutter clean
 
-      - name: Build iOS (no codesign)
+      - name: Build iOS
         run: flutter build ios --release --no-codesign
 
       - name: Create IPA
@@ -36,7 +35,7 @@ jobs:
           cp -r build/ios/iphoneos/Runner.app Payload/
           zip -r app.ipa Payload
 
-      - name: Upload IPA
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: app-ipa
