@@ -12,11 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Flutter (manual, stable & safe)
-        run: |
-          git clone https://github.com/flutter/flutter.git -b stable --depth 1
-          echo "${GITHUB_WORKSPACE}/flutter/bin" >> $GITHUB_PATH
-          flutter --version
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          cache: true
 
       - name: Check Flutter Doctor
         run: flutter doctor -v
