@@ -15,8 +15,8 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable'
-          cache: true
+        flutter-version: '3.24.0'  # or the latest stable version you need
+        cache: true
 
       - name: Check Flutter Doctor
         run: flutter doctor -v
