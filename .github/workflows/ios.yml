@@ -12,18 +12,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Flutter manually
+      - name: Install Flutter (manual, stable & safe)
         run: |
           git clone https://github.com/flutter/flutter.git -b stable --depth 1
           echo "$PWD/flutter/bin" >> $GITHUB_PATH
+          flutter --version
 
-      - name: Verify Flutter
-        run: flutter --version
+      - name: Check Flutter Doctor
+        run: flutter doctor -v
 
-      - name: Get dependencies
+      - name: Install dependencies
         run: flutter pub get
 
-      - name: Clean
+      - name: Clean build
         run: flutter clean
 
       - name: Build iOS (no codesign)
